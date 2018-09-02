@@ -31,7 +31,6 @@ public class ValidatorJwt extends AbstractValidatorJwt {
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
             JWTVerifier verifier = JWT.require(algorithm)
-                .withClaim('username', 'system@system.ds')
                 .acceptNotBefore(new Date().getTime())
                 .build();
             DecodedJWT jwt = verifier.verify(encodedCredentials)

@@ -18,6 +18,13 @@
         <camunda.version>7.9.0</camunda.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -75,9 +82,11 @@
         </dependency>
 
         <dependency>
-            <groupId>io.digitalstate.camunda.authentication.jwt</groupId>
-            <artifactId>camunda-rest-api-jwt-authentication</artifactId>
-            <version>v0.5</version>
+            <groupId>com.github.digitalstate</groupId>
+            <artifactId>camunda-rest-jwt-authentication</artifactId>
+            <version>54c9a7e6ae</version>
+            <!--Change Scope to compile if you want to build the validator directly into the Camunda-Test-JWT-authentication code-->
+            <!--use provided if you just want to have the validator as a standalone jar-->
             <scope>provided</scope>
         </dependency>
 

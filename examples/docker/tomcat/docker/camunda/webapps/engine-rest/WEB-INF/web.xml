@@ -47,21 +47,6 @@
       <url-pattern>/*</url-pattern>
     </filter-mapping> -->
 
-    <servlet>
-        <servlet-name>Resteasy</servlet-name>
-        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher</servlet-class>
-        <init-param>
-            <param-name>javax.ws.rs.Application</param-name>
-            <param-value>org.camunda.bpm.engine.rest.impl.application.DefaultApplication</param-value>
-        </init-param>
-        <async-supported>true</async-supported>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Resteasy</servlet-name>
-        <url-pattern>/*</url-pattern>
-    </servlet-mapping>
-
     <!-- Camunda Rest-API JWT Authentication -->
     <filter>
         <filter-name>camunda-jwt-auth</filter-name>
@@ -81,12 +66,27 @@
         <init-param>
             <param-name>jwt-validator</param-name>
             <!--Replace the value with your Class that extends AbstractValidatorJwt-->
-            <param-value>io.digitalstate.camunda.custom.microservice.ValidatorJwt</param-value>
+            <param-value>io.digitalstate.camunda.custom.jwt.ValidatorJwt</param-value>
         </init-param>
     </filter>
     <filter-mapping>
         <filter-name>camunda-jwt-auth</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <servlet>
+        <servlet-name>Resteasy</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServlet30Dispatcher</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>org.camunda.bpm.engine.rest.impl.application.DefaultApplication</param-value>
+        </init-param>
+        <async-supported>true</async-supported>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Resteasy</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
 
 </web-app>
