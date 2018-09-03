@@ -67,6 +67,44 @@ JWT Config:
 
 If you want to see what happens when you get a access denied, change remove the admin group from the `groupIds` field
 
+# How to install
+
+If you are building a Spring Boot or generating a JAR wth camunda, you can install the library as follows:
+
+Add JitPack as a repository source in your build file.
+
+If you are using Maven, then add the following to your pom.xml
+
+```xml
+<project>
+...
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+...
+```
+
+This snippet will enable Maven dependency download directly from Github.com
+
+Then add the following dependency:
+
+```xml
+...
+ <dependency>
+    <groupId>com.github.digitalstate</groupId>
+    <artifactId>camunda-rest-jwt-authentication</artifactId>
+    <version>v0.5</version>
+    <scope>compile</scope>
+ </dependency>
+```
+
+If you are using a existing Docker Container with Camunda / the Shared Engine configuration of Camunda, and you would like to add JWT see:
+
+1. Tomcat: [`./examples/docker/tomcat`](./examples/docker/tomcat)
+
 
 # Tomcat Servlet Filter Configuration
 
