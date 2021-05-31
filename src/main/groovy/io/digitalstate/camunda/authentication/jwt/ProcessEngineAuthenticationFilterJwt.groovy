@@ -52,9 +52,11 @@ public class ProcessEngineAuthenticationFilterJwt implements Filter {
     public static final String AUTHENTICATION_PROVIDER_PARAM = "authentication-provider";
     public static final String JWT_SECRET_PATH_PARAM = "jwt-secret-path";
     public static final String JWT_VALIDATOR_PARAM = "jwt-validator";
+    public static final String EXCLUDED_URLS_PARAM = "excluded-urls";
     private static String jwtSecretPath
     private static String jwtValidator
     private static Class<?> jwtValidatorClass
+    private static List<String> excludedUrls
 
 
     protected AuthenticationProviderJwt authenticationProvider;
@@ -69,6 +71,13 @@ public class ProcessEngineAuthenticationFilterJwt implements Filter {
 
         if (!jwtValidator){
             jwtValidator = filterConfig.getInitParameter(JWT_VALIDATOR_PARAM)
+        }
+
+        if (!excludedUrls){
+            String excludedList = filterConfig.getInitParameter(EXCLUDED_URLS_PARAM);
+            if (excludedList != null) {
+                excludedUrls = Arrays.asList(excludedList.split(","))
+            }
         }
 
         if (authenticationProviderClassName == null) {
@@ -106,6 +115,16 @@ public class ProcessEngineAuthenticationFilterJwt implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
 
+        String path = req.getRequestURI().substring(req.getContextPath().length());
+
+        if (excludedUrls != null) {
+            for (excludedPath in excludedUrls) {
+                if (path.startsWith(excludedPath)) {
+                    chain.doFilter(request, response);
+                    return;
+                }
+            }
+        }
 
         ProcessEngine engine = BpmPlatform.getDefaultProcessEngine();
 
