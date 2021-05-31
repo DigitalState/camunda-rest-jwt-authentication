@@ -15,10 +15,14 @@ This provider is added into the Camunda's engine-rest application which is the R
 
 A Servlet Filter is added into the engine-rest app which will process requests in the JWT Authentication provider.
 
-Two initialization parameters of the filter are provided for easy customization:
+The following initialization parameters are provided for easy customization of the filter:
 
 1. `jwt-secret-path` : The file path to a file containing the JWT secret used to decode/validate the JWT.  The value can be null if you get your secret from a different source.
-1. `jwt-validator` : The fully qualified class name of the class that will validate the JWT.
+2. `jwt-validator` : The fully qualified class name of the class that will validate the JWT.
+3. `excluded-urls` (optional) : Comma-separated list of paths to be excluded from the filter. 
+
+    - If `/path` is excluded, all paths under `/path` will also be excluded. 
+    - If `/path/` (with trailing slash) is listed, only the paths under it are excluded.
 
 It is expected that the JWT is using the standard `Authorization` header with the format `Bearer theJwtTokenHere` 
 
